@@ -1,0 +1,58 @@
+# Laporan Praktik Data Warehouse: Apache Hive
+
+## 1. Overview tentang Apache Hive
+**Apache Hive** adalah perangkat lunak dalam kategori Data Warehouse yang berjalan di atas Hadoop. 
+Hive memungkinkan pengguna untuk mengeksekusi kueri SQL-like yang dikenal sebagai HiveQL, dan ini diterjemahkan menjadi pekerjaan MapReduce untuk dijalankan di cluster Hadoop. 
+Hive digunakan untuk menyimpan, mengelola, dan memproses data besar.
+
+### Fitur Utama Apache Hive:
+- **Kueri SQL-like (HiveQL):** Memungkinkan pengguna yang terbiasa dengan SQL untuk berinteraksi dengan data besar.
+- **Skalabilitas:** Dapat menangani petabyte data yang didistribusikan di banyak node dalam cluster Hadoop.
+- **Integrasi dengan Hadoop:** Menggunakan HDFS untuk penyimpanan dan MapReduce untuk pemrosesan.
+
+## 2. Praktik Instalasi Apache Hive
+
+### Prasyarat
+Instalasi Hadoop harus sudah ada dan dikonfigurasi pada sistem.
+
+### Langkah-langkah Instalasi
+
+**Download Apache Hive:**
+   ```bash
+   wget https://downloads.apache.org/hive/stable/apache-hive-3.1.2-bin.tar.gz
+
+**ekstrak file**
+tar -zxvf apache-hive-3.1.2-bin.tar.gz
+
+**Konfigurasi Environment Variables: Tambahkan berikut ini ke '.bashrc atau '.bash_profile:**
+export HIVE_HOME=/path/to/apache-hive-3.1.2-bin
+export PATH=$PATH:$HIVE_HOME/bin
+
+**Inisialisasi Metastore:**
+schematool -dbType derby -initSchema
+
+**Start Hive CLI:**
+hive
+
+
+**3. Contoh Perintah CRUD di Apache Hive**
+**Create (Membuat Tabel dan Menambahkan Data)**
+CREATE TABLE employees (
+   id INT,
+   name STRING,
+   salary FLOAT
+)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ','
+STORED AS TEXTFILE;
+
+LOAD DATA LOCAL INPATH '/path/to/employees.csv' INTO TABLE employees;
+
+**Read (Membaca Data)**
+SELECT * FROM employees;
+
+**Update (Memperbarui Data)**
+UPDATE employees SET salary = 60000 WHERE id = 1;
+
+**Delete (Menghapus Data)**
+DELETE FROM employees WHERE id = 1;
